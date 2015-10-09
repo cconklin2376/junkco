@@ -90,6 +90,14 @@ systemctl restart httpd.service
 
 SRC1
 
+###############################################################################
+# fix phpmyadmin access (for home nat network - this probably replaces more 
+#	than what is necessary but works for now)
+###############################################################################
+
+cp /etc/httpd/conf.d/phpMyAdmin.conf /etc/httpd/conf.d/phpMyAdmin.conf.orig
+sed -i 's/127.0.0.1/192.168.0/g' /etc/httpd/conf.d/phpMyAdmin.conf
+
 
 
 ###############################################################################
