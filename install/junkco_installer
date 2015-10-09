@@ -48,6 +48,10 @@ set -x
 # Install prerequisites
 ###############################################################################
 
+# bootstrap
+yum install -y wget
+
+
 # epel repo in case isn't added already
 wget http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-5.noarch.rpm
 rpm -Uvh epel-release-7*.rpm
