@@ -120,9 +120,9 @@ systemctl enable httpd.service
 ###############################################################################
 # firewall settings
 ###############################################################################
-sudo firewall-cmd --permanent --zone=public --add-service=http 
-sudo firewall-cmd --permanent --zone=public --add-service=https
-sudo firewall-cmd --reload
+firewall-cmd --permanent --zone=public --add-service=http 
+firewall-cmd --permanent --zone=public --add-service=https
+firewall-cmd --reload
 
 
 ###############################################################################
