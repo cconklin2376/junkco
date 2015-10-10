@@ -30,8 +30,7 @@ JUNKCO_HOME=${JUNKCO_HOME:-/home/$JUNKCO_USER}
 # domains. an IP address will suffice if nothing else is available.
 JUNKCO_DOMAIN=${JUNKCO_DOMAIN:-junkco$SRVENV.local}
 
-SYS_IP="`ip addr show eth0 | grep inet | awk '{ print $2; }' | sed 's/\/.*$//'`"
-
+SYS_IP="`ip addr | grep 'state UP' -A2 | tail -n1 | awk '{print $2}' | cut -f1  -d'/'`"
 YUM_OPTIONS="-y"
 
 ###############################################################################
