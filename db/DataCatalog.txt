@@ -1,0 +1,50 @@
+Junkco Data Catalog
+
+
+Product
+
+A Product is an individual offering by a supplier to be sold. It is uniquely identified by its product_id internally and product_model_no externally. Products are linked to items sold to customers as well as purchased from suppliers.
+
+
+Item
+
+An Item is a piece of inventory. It can be added to Customer_Orders, be ordered in Supplier_Orders. So every Item out can be tracked via a Customer_Order and an Item in can be tracked via a Supplier_Order
+
+
+Customer
+
+A Customer is someone who purchases an order or creates an account.
+
+
+Customer_Order
+
+A Customer_Order is one that exists between JunkCo and a Customer
+
+
+Customer_Shipment
+
+A Customer_Shipment is a shipment from JunkCo to a Customer
+
+
+Customer_Account
+
+A Customer_Account is any account used for payment in a Customer_Order
+
+
+Customer_Invoice
+
+A Customer_Invoice is a summary of a Customer_Order, the Items, Products and the Customer_Account
+
+
+Supplier
+
+A Supplier is any vendor that supplies Products to JunkCo
+
+
+Supply_Order
+
+A Supply_Order is one that exists between JunkCo and a Supplier
+
+Supply_Invoice
+
+A Supply_Invoice is a summary of a Supply_Order…
