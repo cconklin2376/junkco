@@ -1,0 +1,148 @@
+#!/bin/bash
+###############################################################################
+# junkco default installer CentOS7/RHEL7
+# created 10/9/15
+# Prerequistes: must be run as root and the user/group junkco must be created
+# run as is or with junkco_install 2>&1 | tee -a junkco_install.log
+###############################################################################
+
+
+
+set -e
+
+###############################################################################
+# Configuration
+###############################################################################
+# the server environment you are setting up dev or prod
+SRVENV='dev'
+
+# which user to install the code for; defaults to the user invoking this script
+JUNKCO_USER=${JUNKCO_USER:-$SUDO_USER}
+
+# the group to run junkco code as; must exist already
+JUNKCO_GROUP=${JUNKCO_GROUP:-nogroup}
+
+# the root directory to base the install in. must exist already
+JUNKCO_HOME=${JUNKCO_HOME:-/home/$JUNKCO_USER}
+
+# the domain that you will connect to your reddit install with.
+# MUST contain a . in it somewhere as browsers won't do cookies for dotless
+# domains. an IP address will suffice if nothing else is available.
+JUNKCO_DOMAIN=${JUNKCO_DOMAIN:-junkco$SRVENV.local}
+
+SYS_IP="`ip addr | grep 'state UP' -A2 | tail -n1 | awk '{print $2}' | cut -f1  -d'/'`"
+YUM_OPTIONS="-y"
+
+###############################################################################
+# Sanity Checks
+###############################################################################
+if [[ $EUID -ne 0 ]]; then
+    echo "ERROR: Must be run with root privileges."
+    exit 1
+fi
+
+set -x
+
+###############################################################################
+# Install prerequisites
+###############################################################################
+
+# bootstrap
+yum install -y wget
+
+
+# epel repo in case isn't added already
+wget http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-5.noarch.rpm
+rpm -Uvh epel-release-7*.rpm
+
+
+yum update $YUM_OPTIONS
+
+
+cat <<PACKAGES | xargs yum install $YUM_OPTIONS
+epel-release
+git
+httpd
+mariadb-server
+mariadb
+php
+php-mysql
+phpmyadmin
+
+PACKAGES
+
+
+###############################################################################
+# generate php test page
+###############################################################################
+
+cat > /var/www/html/info.php <<PINFO
+
+<?php phpinfo(); ?>
+
+PINFO
+
+
+###############################################################################
+# create helper script (this may be better as an include)
+###############################################################################
+mkdir -p $JUNKCO_HOME/bin/scripts 
+cat > $JUNKCO_HOME/bin/scripts/restart_svcs <<SRC1
+
+systemctl restart httpd.service
+
+SRC1
+
+###############################################################################
+# fix phpmyadmin access (for home nat network - this probably replaces more 
+#	than what is necessary but works for now)
+###############################################################################
+
+cp /etc/httpd/conf.d/phpMyAdmin.conf /etc/httpd/conf.d/phpMyAdmin.conf.orig
+sed -i 's/127.0.0.1/192.168.0/g' /etc/httpd/conf.d/phpMyAdmin.conf
+
+
+
+###############################################################################
+# service configuration
+###############################################################################
+systemctl start mariadb.service
+
+systemctl enable mariadb.service
+
+
+systemctl start httpd.service
+
+systemctl enable httpd.service
+
+
+###############################################################################
+# firewall settings
+###############################################################################
+firewall-cmd --permanent --zone=public --add-service=http 
+firewall-cmd --permanent --zone=public --add-service=https
+firewall-cmd --reload
+
+
+###############################################################################
+# All done!
+###############################################################################
+cd $JUNKCO_HOME
+
+cat <<CONCLUSION
+Congratulations! Your junkco$SRVENV LAMP server is now installed.
+
+* You will need to run 'mysql_secure_installation' to complete the install
+	of mariadb/mysql
+
+* After configuring the db run:
+	$sudo $JUNKCO_HOME/scripts/restart_svcs or just run:
+	# systemctl restart httpd.service
+
+
+* check php status at http://$SYS_IP/info.php
+
+
+CONCLUSION
+
+
