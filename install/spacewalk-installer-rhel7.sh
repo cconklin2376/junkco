@@ -23,7 +23,7 @@ set -x
 # Install Epel
 ###############################################################################
 
-yum install epel-release
+yum install -y epel-release
 
 ###############################################################################
 # Configure Repo
@@ -44,7 +44,7 @@ EOF
 ###############################################################################
 rpm -Uvh http://yum.spacewalkproject.org/2.4/RHEL/7/x86_64/spacewalk-repo-2.4-3.el7.noarch.rpm
 
-yum install spacewalk-setup-postgresql
+yum install -y spacewalk-setup-postgresql
 
 
 ###############################################################################
@@ -61,7 +61,7 @@ sudo firewall-cmd --reload
 # Spacewalk Installation
 ###############################################################################
 
-sudo yum install spacewalk-postgresql
+sudo yum install -y spacewalk-postgresql
 
 sudo spacewalk-setup --disconnected
 
