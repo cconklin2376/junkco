@@ -42,7 +42,7 @@ EOF
 ###############################################################################
 # Install
 ###############################################################################
-yum install http://yum.spacewalkproject.org/2.3/RHEL/7/x86_64/spacewalk-repo-2.3-2.el7.noarch.rpm
+rpm -Uvh http://yum.spacewalkproject.org/2.4/RHEL/7/x86_64/spacewalk-repo-2.4-3.el7.noarch.rpm
 
 yum install spacewalk-setup-postgresql
 
