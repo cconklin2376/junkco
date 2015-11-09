@@ -8,12 +8,12 @@
 # Run after spacewalk server is configured
 ##############################################################################
 
-#SWK_USER=$(whoami)
-SWK_USER=tester
-SWK_USER_HOME=/home/$SWK_USER
+#SCRIPT_USR=$(whoami)
+SCRIPT_USR=tester
+SCRIPT_USR_HOME=/home/$SCRIPT_USR
 SYS_IP="`ip addr | grep 'state UP' -A2 | tail -n1 | awk '{print $2}' | cut -f1  -d'/'`"
-SWK_ADMIN="admin"
-
+export SPACEWALK_USER=$1
+export SPACEWALK_PASS=$2
 ###############################################################################
 # Sanity Checks
 ###############################################################################
@@ -22,6 +22,10 @@ if [[ $EUID -ne 0 ]]; then
     exit 1
 fi
 
+if [ -z ${1} ] || [ -z ${2} ]; then
+    echo "Usage: script username password"
+    exit 1
+fi
 
 ###############################################################################
 # Errata config 
@@ -30,10 +34,10 @@ fi
 sudo yum install -y wget
 
 #mkdir -p /var/lib/spacewalk-errata && cd /var/lib/spacewalk-errata
-mkdir $SWK_USER_HOME/.spacewalk-errata 
-cd $SWK_USER_HOME/.spacewalk-errata
+mkdir $SCRIPT_USR_HOME/.spacewalk-errata 
+cd $SCRIPT_USR_HOME/.spacewalk-errata
 
-wget http://cefs.steve-meier.de/errata.latest.xml
+wget -N http://cefs.steve-meier.de/errata.latest.xml
 wget http://cefs.steve-meier.de/errata-import.tar
 
 tar xf errata-import.tar
@@ -43,32 +47,21 @@ chmod 775 errata-import.pl
 sudo yum install -y perl-Frontier-RPC
 sudo yum install -y perl-Text-Unidecode  
 
-EFILE=$SWK_USER_HOME/.spacewalk-errata/errata.latest.xml
+EFILE=$SCRIPT_USR_HOME/.spacewalk-errata/errata.latest.xml
 
 # usage: ./errata-import.pl --server <SERVER> --errata <ERRATA_FILE>
-$SWK_USER_HOME/.spacewalk-errata/errata-import.pl --server $SYS_IP --errata $EFILE
+$SCRIPT_USR_HOME/.spacewalk-errata/errata-import.pl --server $SYS_IP --errata $EFILE
 
-cat <<UPDT > $SWK_USER_HOME/.spacewalk-errata/check-update.sh
+cat <<UPDT > $SCRIPT_USR_HOME/.spacewalk-errata/check-update.sh
 /usr/bin/wget -N http://cefs.steve-meier.de/errata.latest.xml
 UPDT
 
-chmod 775 $SWK_USER_HOME/.spacewalk-errata/check-update.sh
+chmod 775 $SCRIPT_USR_HOME/.spacewalk-errata/check-update.sh
 
 ###############################################################################
 # Cron Jobs
 ###############################################################################
-if [ ! -f /etc/cron.d/$SWK_USER ]; then
-    cat > /etc/cron.d/$SWK_USER <<CRON
-0    3 * * * $SWK_USER_HOME/.spacewalk-errata/check-update.sh
+if [ ! -f /etc/cron.d/$SCRIPT_USR ]; then
+    cat > /etc/cron.d/$SCRIPT_USR <<CRON
+0    3 * * * $SCRIPT_USR_HOME/.spacewalk-errata/check-update.sh
 CRON
-
-
-
-
-
-
-
-
-
-
-
