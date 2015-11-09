@@ -43,7 +43,7 @@ chmod 775 errata-import.pl
 sudo yum install -y perl-Frontier-RPC
 sudo yum install -y perl-Text-Unidecode  
 
-EFILE=$SWK_USER_HOME/.spacewalk-errata/errata-latest.xml
+EFILE=$SWK_USER_HOME/.spacewalk-errata/errata.latest.xml
 
 # usage: ./errata-import.pl --server <SERVER> --errata <ERRATA_FILE>
 $SWK_USER_HOME/.spacewalk-errata/errata-import.pl --server $SYS_IP --errata $EFILE
