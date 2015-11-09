@@ -8,7 +8,8 @@
 # Run after spacewalk server is configured
 ##############################################################################
 
-SWK_USER=$(whoami)
+#SWK_USER=$(whoami)
+SWK_USER=tester
 SWK_USER_HOME=/home/$SWK_USER
 SYS_IP="`ip addr | grep 'state UP' -A2 | tail -n1 | awk '{print $2}' | cut -f1  -d'/'`"
 SWK_ADMIN="admin"
