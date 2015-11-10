@@ -53,6 +53,7 @@ EFILE=$SCRIPT_USR_HOME/.spacewalk-errata/errata.latest.xml
 $SCRIPT_USR_HOME/.spacewalk-errata/errata-import.pl --server $SYS_IP --errata $EFILE
 
 cat <<UPDT > $SCRIPT_USR_HOME/.spacewalk-errata/check-update.sh
+#!/bin/bash
 /usr/bin/wget -N http://cefs.steve-meier.de/errata.latest.xml
 UPDT
 
