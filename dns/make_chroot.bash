@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# from linux web operations video
+
 chroot_base=/chroot/named
 
 mkdir -p ${chroot_base}{,/dev,/etc/namedb/slave,/var/run/,/var/cache/bind,/etc/bind}
