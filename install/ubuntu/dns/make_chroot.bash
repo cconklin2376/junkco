@@ -1,6 +1,10 @@
 #!/bin/bash
 
 # from linux web operations video
+# you will also need to edit the bind9 options and tell bind where the
+# chroot is
+# OPTIONS="-u bind -4 -t /var/named -t /chroot/named -c /etc/bind/named.conf"
+# will use chroot named but still will use original named.conf 
 
 chroot_base=/chroot/named
 
