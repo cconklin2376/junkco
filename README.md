@@ -1,3 +1,6 @@
+Reference-style: 
+![alt text][logo]
+
 [logo]: https://github.com/chris-conklin/junkco/static/img/junkco.png 
 
 ## Junkco is an educational environment that serves as a testbed for implementing new tech
