@@ -1,4 +1,4 @@
-![alt text] (https://github.com/chris-conklin/junkco/static/img/junkco.png)
+![alt text] (https://github.com/chris-conklin/junkco/blob/master/static/img/junkco.png)
 ## Junkco is an educational environment that serves as a testbed for implementing new tech
 
 ### Components
