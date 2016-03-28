@@ -15,4 +15,9 @@
 
 4. TANNER Employee Management Application
 
- 
+### Environment Variables
+
+|Variable                    |Description                                |
+|----------------------------|-------------------------------------------|
+|PR_DB_USER                  |Mysql user authorized to modify payroll    |
+|PR_DB_PW                    |Mysql password for PR_DB_USER              |
