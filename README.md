@@ -1,7 +1,4 @@
-Reference-style: 
-![alt text][logo]
-
-[logo]: https://github.com/chris-conklin/junkco/static/img/junkco.png 
+![alt text] (https://github.com/chris-conklin/junkco/static/img/junkco.png "Logo Text 1") 
 
 ## Junkco is an educational environment that serves as a testbed for implementing new tech
 
