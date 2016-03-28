@@ -1,9 +1,4 @@
-      _             _             
-     | |_   _ _ __ | | _____ ___  
-  _  | | | | | '_ \| |/ / __/ _ \ 
- | |_| | |_| | | | |   < (_| (_) |
-  \___/ \__,_|_| |_|_|\_\___\___/ 
- 
+[logo]: https://github.com/chris-conklin/junkco/static/img/junkco.png 
 
 ## Junkco is an educational environment that serves as a testbed for implementing new tech
 
