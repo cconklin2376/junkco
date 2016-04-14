@@ -1,6 +1,12 @@
 Identity Management
 ===================
 
+.. toctree::
+   :maxdepth: 1
+
+   ipaserver
+
+
 Identity can be managed in the following ways in the junkco environment:
 
 * IPA Server (CentOS 7)

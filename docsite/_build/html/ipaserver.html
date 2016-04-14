@@ -1,0 +1,265 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>IPA Server &mdash; Junkco 0.1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="author" title="About these documents"
+              href="about.html"/>
+    <link rel="top" title="Junkco 0.1 documentation" href="index.html"/>
+        <link rel="up" title="Identity Management" href="idmanagement.html"/>
+        <link rel="next" title="Server Configuration" href="servers.html"/>
+        <link rel="prev" title="Identity Management" href="idmanagement.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Junkco
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="about.html">About This Project</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="idmanagement.html">Identity Management</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="">IPA Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#firewall-entries">Firewall Entries</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="servers.html">Server Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="database.html">Database Structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test.html">Test Page</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Junkco</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="idmanagement.html">Identity Management</a> &raquo;</li>
+      
+    <li>IPA Server</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/ipaserver.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="ipa-server">
+<h1>IPA Server<a class="headerlink" href="#ipa-server" title="Permalink to this headline">¶</a></h1>
+<p>Initial install performed  Jan 29, 2016</p>
+<p>Steps:
+1. Install CentOS 7 with server gui pattern with at least 2 GB of RAM
+2. # yum install -y ipa-server bind bind-dyndb-ldap (ipa-server-dns is needed too!)
+3. # ipa-server-install</p>
+<p>Go with the DNS. Just go with it!</p>
+<p>The first annoying thing was that the tutorial mentions creating an entry in the /etc/hosts file for the server. If you do this the install will fail as the installer populates the hosts file. It may overwrite instead of conflict (I had the issue with the ip address so I don&#8217;t know what it does but the point is that you don&#8217;t have to set it.)</p>
+<p>Another biggie is your ip address. I was going to use my internal scheme and have the ipa.example.com resolve to 192.168.122.11 BUT the installer checks for local addresses. The workaround is to hack the python code!
+via: <a class="reference external" href="https://www.redhat.com/archives/freeipa-users/2012-February/msg00064.html">https://www.redhat.com/archives/freeipa-users/2012-February/msg00064.html</a></p>
+<p>The workaround:
+/usr/lib/python2.6/site-packages/ipapython/ipautil.py line 145  as below.. remark all 4 lines and it&#8217;ll continue</p>
+<blockquote>
+<div>&#8220;&#8221;&#8221;
+if addr == net.network:
+raise ValueError(&#8220;cannot use IP network address&#8221;)
+if addr.version == 4 and addr == net.broadcast:
+raise ValueError(&#8220;cannot use broadcast IP address&#8221;)
+&#8220;&#8221;&#8220;</div></blockquote>
+</div>
+<div class="section" id="firewall-entries">
+<h1>Firewall Entries<a class="headerlink" href="#firewall-entries" title="Permalink to this headline">¶</a></h1>
+<p>#!/bin/bash</p>
+<p># http/https
+firewall-cmd &#8211;zone=public &#8211;add-port=80/tcp &#8211;permanent
+firewall-cmd &#8211;zone=public &#8211;add-port=443/tcp &#8211;permanent
+# ldap/ldaps
+firewall-cmd &#8211;zone=public &#8211;add-port=398/tcp &#8211;permanent
+firewall-cmd &#8211;zone=public &#8211;add-port=636/tcp &#8211;permanent
+# kerberos
+firewall-cmd &#8211;zone=public &#8211;add-port=88/tcp &#8211;permanent
+firewall-cmd &#8211;zone=public &#8211;add-port=464/tcp &#8211;permanent
+# bind
+firewall-cmd &#8211;zone=public &#8211;add-port=53/tcp &#8211;permanent</p>
+<p># kerberos
+firewall-cmd &#8211;zone=public &#8211;add-port=88/udp &#8211;permanent
+firewall-cmd &#8211;zone=public &#8211;add-port=464/udp &#8211;permanent
+# bind
+firewall-cmd &#8211;zone=public &#8211;add-port=53/udp &#8211;permanent
+# ntp
+firewall-cmd &#8211;zone=public &#8211;add-port=123/udp &#8211;permanent</p>
+<p>Amazing!</p>
+<p>Client can be installed with ipa-client-install</p>
+<p>see near bottom:
+<a class="reference external" href="http://blog.christophersmart.com/articles/freeipa-how-to-fedora/">http://blog.christophersmart.com/articles/freeipa-how-to-fedora/</a>
+External resources:</p>
+<ul class="simple">
+<li><a class="reference external" href="https://www.certdepot.net/rhel7-configure-freeipa-server/">https://www.certdepot.net/rhel7-configure-freeipa-server/</a></li>
+<li><a class="reference external" href="http://www.unixmen.com/configure-freeipa-server-centos-7/">http://www.unixmen.com/configure-freeipa-server-centos-7/</a></li>
+</ul>
+<p>ipa-client-install on centos 7</p>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="servers.html" class="btn btn-neutral float-right" title="Server Configuration" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="idmanagement.html" class="btn btn-neutral" title="Identity Management" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Chris Conklin.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
