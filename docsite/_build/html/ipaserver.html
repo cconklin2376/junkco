@@ -88,7 +88,6 @@
 <li class="toctree-l1"><a class="reference internal" href="about.html">About This Project</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="idmanagement.html">Identity Management</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="">IPA Server</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#firewall-entries">Firewall Entries</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="servers.html">Server Configuration</a></li>
@@ -160,9 +159,7 @@ raise ValueError(&#8220;cannot use IP network address&#8221;)
 if addr.version == 4 and addr == net.broadcast:
 raise ValueError(&#8220;cannot use broadcast IP address&#8221;)
 &#8220;&#8221;&#8220;</div></blockquote>
-</div>
-<div class="section" id="firewall-entries">
-<h1>Firewall Entries<a class="headerlink" href="#firewall-entries" title="Permalink to this headline">¶</a></h1>
+<p>Firewall Entries</p>
 <p>#!/bin/bash</p>
 <p># http/https
 firewall-cmd &#8211;zone=public &#8211;add-port=80/tcp &#8211;permanent
@@ -186,11 +183,9 @@ firewall-cmd &#8211;zone=public &#8211;add-port=123/udp &#8211;permanent</p>
 <p>Client can be installed with ipa-client-install</p>
 <p>see near bottom:
 <a class="reference external" href="http://blog.christophersmart.com/articles/freeipa-how-to-fedora/">http://blog.christophersmart.com/articles/freeipa-how-to-fedora/</a>
-External resources:</p>
-<ul class="simple">
-<li><a class="reference external" href="https://www.certdepot.net/rhel7-configure-freeipa-server/">https://www.certdepot.net/rhel7-configure-freeipa-server/</a></li>
-<li><a class="reference external" href="http://www.unixmen.com/configure-freeipa-server-centos-7/">http://www.unixmen.com/configure-freeipa-server-centos-7/</a></li>
-</ul>
+External resources:
+Cert Depot Entry on IPA setup on CentOS 7 <a class="reference external" href="https://www.certdepot.net/rhel7-configure-freeipa-server/">a link</a>.</p>
+<p><a class="reference external" href="http://www.unixmen.com/configure-freeipa-server-centos-7/">Unixmen Config IPA Server</a></p>
 <p>ipa-client-install on centos 7</p>
 </div>
 

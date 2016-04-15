@@ -61,9 +61,11 @@ Client can be installed with ipa-client-install
 see near bottom:
 http://blog.christophersmart.com/articles/freeipa-how-to-fedora/
 External resources:
+Cert Depot Entry on IPA setup on CentOS 7 `a link`_.
 
-* https://www.certdepot.net/rhel7-configure-freeipa-server/
-* http://www.unixmen.com/configure-freeipa-server-centos-7/
+.. _a link: https://www.certdepot.net/rhel7-configure-freeipa-server/
+
+`Unixmen Config IPA Server <http://www.unixmen.com/configure-freeipa-server-centos-7/>`_
 
 
 

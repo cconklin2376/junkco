@@ -34,7 +34,7 @@
               href="about.html"/>
     <link rel="top" title="Junkco 0.1 documentation" href="index.html"/>
         <link rel="next" title="Database Structure" href="database.html"/>
-        <link rel="prev" title="Identity Management" href="idmanagement.html"/> 
+        <link rel="prev" title="IPA Server" href="ipaserver.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -86,7 +86,11 @@
                 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="about.html">About This Project</a></li>
 <li class="toctree-l1"><a class="reference internal" href="idmanagement.html">Identity Management</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">Server Configuration</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Server Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#vagrant-environments">Vagrant Environments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#traditional-base-install-and-config-script">Traditional Base Install and Config Script</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="database.html">Database Structure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="test.html">Test Page</a></li>
 </ul>
@@ -135,14 +139,29 @@
             
   <div class="section" id="server-configuration">
 <h1>Server Configuration<a class="headerlink" href="#server-configuration" title="Permalink to this headline">¶</a></h1>
-<p>Junkco has server install scripts based on OS and role. Currently there are roles for</p>
+<p>We are currently running a mixture of Vagrant boxes, Bare Metal Servers, and VMs. Each server role should have a workflow in one or more environments.</p>
+<div class="section" id="vagrant-environments">
+<h2>Vagrant Environments<a class="headerlink" href="#vagrant-environments" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><dl class="first docutils">
+<dt>Ubuntu 14.04</dt>
+<dd><ul class="first last simple">
+<li><a class="reference external" href="https://github.com/chris-conklin/mossy_lab">Mossy Lab Basic LAMP Server</a></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="section" id="traditional-base-install-and-config-script">
+<h2>Traditional Base Install and Config Script<a class="headerlink" href="#traditional-base-install-and-config-script" title="Permalink to this headline">¶</a></h2>
 <ul>
 <li><dl class="first docutils">
 <dt>CentOS 7</dt>
 <dd><ul class="first last simple">
-<li>A general LAMP server: <a class="reference external" href="https://github.com/chris-conklin/junkco/blob/master/etc/bash/centos7/base-servers/junkco_installer">https://github.com/chris-conklin/junkco/blob/master/etc/bash/centos7/base-servers/junkco_installer</a></li>
-<li>A more specific LAMP server: <a class="reference external" href="https://github.com/chris-conklin/junkco/blob/master/etc/bash/centos7/base-servers/junkco_installer">https://github.com/chris-conklin/junkco/blob/master/etc/bash/centos7/base-servers/junkco_installer</a></li>
-<li>A Spacewalk server: <a class="reference external" href="https://github.com/chris-conklin/junkco/tree/master/etc/bash/centos7/spacewalk">https://github.com/chris-conklin/junkco/tree/master/etc/bash/centos7/spacewalk</a></li>
+<li><a class="reference external" href="https://github.com/chris-conklin/junkco/blob/master/etc/bash/centos7/base-servers/junkco_installer">A general LAMP server</a></li>
+<li><a class="reference external" href="https://github.com/chris-conklin/junkco/blob/master/etc/bash/centos7/base-servers/junkco_installer">A more specific LAMP server</a></li>
+<li><a class="reference external" href="https://github.com/chris-conklin/junkco/tree/master/etc/bash/centos7/spacewalk">A Spacewalk server</a></li>
 </ul>
 </dd>
 </dl>
@@ -150,13 +169,22 @@
 <li><dl class="first docutils">
 <dt>Ubuntu 14.04</dt>
 <dd><ul class="first last simple">
-<li>A dns server (master only)</li>
-<li>A monitor server (carbon)</li>
+<li><a class="reference external" href="https://github.com/chris-conklin/junkco/tree/master/etc/bash/ubuntu/dns">A dns server (master only)</a></li>
+<li><a class="reference external" href="https://github.com/chris-conklin/junkco/tree/master/etc/bash/ubuntu/monitor">A monitor server (carbon)</a></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>XUbuntu 14</dt>
+<dd><ul class="first last simple">
+<li><a class="reference external" href="TODO">Persistent Server Script-out</a></li>
 </ul>
 </dd>
 </dl>
 </li>
 </ul>
+</div>
 </div>
 
 
@@ -169,7 +197,7 @@
         <a href="database.html" class="btn btn-neutral float-right" title="Database Structure" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="idmanagement.html" class="btn btn-neutral" title="Identity Management" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="ipaserver.html" class="btn btn-neutral" title="IPA Server" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
