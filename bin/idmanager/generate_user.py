@@ -11,14 +11,9 @@ import string
   `emp_activity_date` date DEFAULT NULL,
 '''
 
-
-
-
-
 def id_generator(size = 7, chars=string.digits):
+   ''' Return a string with the specified size parameter '''
    return ''.join(random.choice(chars) for x in range(size))
-
-
 
 
 def get_existing_entries(dbfile):
