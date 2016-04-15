@@ -15,7 +15,6 @@ def id_generator(size = 7, chars=string.digits):
    ''' Return a string with the specified size parameter '''
    return ''.join(random.choice(chars) for x in range(size))
 
-
 def get_existing_entries(dbfile):
    ''' Return a list data structure of existing entries contained in the dbfile '''
    existing = []
@@ -23,7 +22,6 @@ def get_existing_entries(dbfile):
       for x in dfile.readlines():
          existing.append(x.strip())
    return existing
-
 
 def main():
    used_data_file_name = 'existing_entries.dat'
