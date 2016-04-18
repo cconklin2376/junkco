@@ -5,9 +5,6 @@
 # Prerequistes: must be run as root and the user/group junkco must be created
 # run as is or with junkco_install 2>&1 | tee -a junkco_install.log
 ###############################################################################
-
-
-
 set -e
 
 ###############################################################################
@@ -25,7 +22,7 @@ JUNKCO_GROUP=${JUNKCO_GROUP:-nogroup}
 # the root directory to base the install in. must exist already
 JUNKCO_HOME=${JUNKCO_HOME:-/home/$JUNKCO_USER}
 
-# the domain that you will connect to your reddit install with.
+# the domain that you will connect to your junkco install with.
 # MUST contain a . in it somewhere as browsers won't do cookies for dotless
 # domains. an IP address will suffice if nothing else is available.
 JUNKCO_DOMAIN=${JUNKCO_DOMAIN:-junkco$SRVENV.local}
@@ -50,14 +47,11 @@ set -x
 # bootstrap
 yum install -y wget
 
-
 # epel repo in case isn't added already
 wget http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-5.noarch.rpm
 rpm -Uvh epel-release-7*.rpm
 
-
 yum update $YUM_OPTIONS
-
 
 cat <<PACKAGES | xargs yum install $YUM_OPTIONS
 epel-release
@@ -71,7 +65,6 @@ phpmyadmin
 
 PACKAGES
 
-
 ###############################################################################
 # generate php test page
 ###############################################################################
@@ -81,7 +74,6 @@ cat > /var/www/html/info.php <<PINFO
 <?php phpinfo(); ?>
 
 PINFO
-
 
 ###############################################################################
 # create helper script (this may be better as an include)
@@ -101,20 +93,13 @@ SRC1
 cp /etc/httpd/conf.d/phpMyAdmin.conf /etc/httpd/conf.d/phpMyAdmin.conf.orig
 sed -i 's/127.0.0.1/192.168.0/g' /etc/httpd/conf.d/phpMyAdmin.conf
 
-
-
 ###############################################################################
 # service configuration
 ###############################################################################
 systemctl start mariadb.service
-
 systemctl enable mariadb.service
-
-
 systemctl start httpd.service
-
 systemctl enable httpd.service
-
 
 ###############################################################################
 # firewall settings
@@ -122,7 +107,6 @@ systemctl enable httpd.service
 firewall-cmd --permanent --zone=public --add-service=http 
 firewall-cmd --permanent --zone=public --add-service=https
 firewall-cmd --reload
-
 
 ###############################################################################
 # All done!
@@ -142,7 +126,5 @@ Congratulations! Your junkco$SRVENV LAMP server is now installed.
 
 * check php status at http://$SYS_IP/info.php
 
-
 CONCLUSION
-
 

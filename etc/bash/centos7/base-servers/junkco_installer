@@ -25,7 +25,7 @@ JUNKCO_GROUP=${JUNKCO_GROUP:-nogroup}
 # the root directory to base the install in. must exist already
 JUNKCO_HOME=${JUNKCO_HOME:-/home/$JUNKCO_USER}
 
-# the domain that you will connect to your reddit install with.
+# the domain that you will connect to your junkco install with.
 # MUST contain a . in it somewhere as browsers won't do cookies for dotless
 # domains. an IP address will suffice if nothing else is available.
 JUNKCO_DOMAIN=${JUNKCO_DOMAIN:-junkco$SRVENV.local}
