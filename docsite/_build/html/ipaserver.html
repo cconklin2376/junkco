@@ -142,10 +142,12 @@
   <div class="section" id="ipa-server">
 <h1>IPA Server<a class="headerlink" href="#ipa-server" title="Permalink to this headline">¶</a></h1>
 <p>Initial install performed  Jan 29, 2016</p>
-<p>Steps:
-1. Install CentOS 7 with server gui pattern with at least 2 GB of RAM
-2. # yum install -y ipa-server bind bind-dyndb-ldap (ipa-server-dns is needed too!)
-3. # ipa-server-install</p>
+<p>Steps:</p>
+<ol class="arabic simple">
+<li>Install CentOS 7 with server gui pattern with at least 2 GB of RAM</li>
+<li># yum install -y ipa-server bind bind-dyndb-ldap (ipa-server-dns is needed too!)</li>
+<li># ipa-server-install</li>
+</ol>
 <p>Go with the DNS. Just go with it!</p>
 <p>The first annoying thing was that the tutorial mentions creating an entry in the /etc/hosts file for the server. If you do this the install will fail as the installer populates the hosts file. It may overwrite instead of conflict (I had the issue with the ip address so I don&#8217;t know what it does but the point is that you don&#8217;t have to set it.)</p>
 <p>Another biggie is your ip address. I was going to use my internal scheme and have the ipa.example.com resolve to 192.168.122.11 BUT the installer checks for local addresses. The workaround is to hack the python code!
@@ -159,26 +161,35 @@ raise ValueError(&#8220;cannot use IP network address&#8221;)
 if addr.version == 4 and addr == net.broadcast:
 raise ValueError(&#8220;cannot use broadcast IP address&#8221;)
 &#8220;&#8221;&#8220;</div></blockquote>
-<p>Firewall Entries</p>
-<p>#!/bin/bash</p>
-<p># http/https
-firewall-cmd &#8211;zone=public &#8211;add-port=80/tcp &#8211;permanent
-firewall-cmd &#8211;zone=public &#8211;add-port=443/tcp &#8211;permanent
-# ldap/ldaps
-firewall-cmd &#8211;zone=public &#8211;add-port=398/tcp &#8211;permanent
-firewall-cmd &#8211;zone=public &#8211;add-port=636/tcp &#8211;permanent
-# kerberos
-firewall-cmd &#8211;zone=public &#8211;add-port=88/tcp &#8211;permanent
-firewall-cmd &#8211;zone=public &#8211;add-port=464/tcp &#8211;permanent
-# bind
-firewall-cmd &#8211;zone=public &#8211;add-port=53/tcp &#8211;permanent</p>
-<p># kerberos
-firewall-cmd &#8211;zone=public &#8211;add-port=88/udp &#8211;permanent
-firewall-cmd &#8211;zone=public &#8211;add-port=464/udp &#8211;permanent
-# bind
-firewall-cmd &#8211;zone=public &#8211;add-port=53/udp &#8211;permanent
-# ntp
-firewall-cmd &#8211;zone=public &#8211;add-port=123/udp &#8211;permanent</p>
+<p>Firewall Entries:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+
+<span class="c1"># http/https</span>
+<span class="n">firewall</span><span class="o">-</span><span class="n">cmd</span> <span class="o">--</span><span class="n">zone</span><span class="o">=</span><span class="n">public</span> <span class="o">--</span><span class="n">add</span><span class="o">-</span><span class="n">port</span><span class="o">=</span><span class="mi">80</span><span class="o">/</span><span class="n">tcp</span> <span class="o">--</span><span class="n">permanent</span>
+<span class="n">firewall</span><span class="o">-</span><span class="n">cmd</span> <span class="o">--</span><span class="n">zone</span><span class="o">=</span><span class="n">public</span> <span class="o">--</span><span class="n">add</span><span class="o">-</span><span class="n">port</span><span class="o">=</span><span class="mi">443</span><span class="o">/</span><span class="n">tcp</span> <span class="o">--</span><span class="n">permanent</span>
+
+<span class="c1"># ldap/ldaps</span>
+<span class="n">firewall</span><span class="o">-</span><span class="n">cmd</span> <span class="o">--</span><span class="n">zone</span><span class="o">=</span><span class="n">public</span> <span class="o">--</span><span class="n">add</span><span class="o">-</span><span class="n">port</span><span class="o">=</span><span class="mi">398</span><span class="o">/</span><span class="n">tcp</span> <span class="o">--</span><span class="n">permanent</span>
+<span class="n">firewall</span><span class="o">-</span><span class="n">cmd</span> <span class="o">--</span><span class="n">zone</span><span class="o">=</span><span class="n">public</span> <span class="o">--</span><span class="n">add</span><span class="o">-</span><span class="n">port</span><span class="o">=</span><span class="mi">636</span><span class="o">/</span><span class="n">tcp</span> <span class="o">--</span><span class="n">permanent</span>
+
+<span class="c1"># kerberos</span>
+<span class="n">firewall</span><span class="o">-</span><span class="n">cmd</span> <span class="o">--</span><span class="n">zone</span><span class="o">=</span><span class="n">public</span> <span class="o">--</span><span class="n">add</span><span class="o">-</span><span class="n">port</span><span class="o">=</span><span class="mi">88</span><span class="o">/</span><span class="n">tcp</span> <span class="o">--</span><span class="n">permanent</span>
+<span class="n">firewall</span><span class="o">-</span><span class="n">cmd</span> <span class="o">--</span><span class="n">zone</span><span class="o">=</span><span class="n">public</span> <span class="o">--</span><span class="n">add</span><span class="o">-</span><span class="n">port</span><span class="o">=</span><span class="mi">464</span><span class="o">/</span><span class="n">tcp</span> <span class="o">--</span><span class="n">permanent</span>
+
+<span class="c1"># bind</span>
+<span class="n">firewall</span><span class="o">-</span><span class="n">cmd</span> <span class="o">--</span><span class="n">zone</span><span class="o">=</span><span class="n">public</span> <span class="o">--</span><span class="n">add</span><span class="o">-</span><span class="n">port</span><span class="o">=</span><span class="mi">53</span><span class="o">/</span><span class="n">tcp</span> <span class="o">--</span><span class="n">permanent</span>
+
+<span class="c1"># kerberos</span>
+<span class="n">firewall</span><span class="o">-</span><span class="n">cmd</span> <span class="o">--</span><span class="n">zone</span><span class="o">=</span><span class="n">public</span> <span class="o">--</span><span class="n">add</span><span class="o">-</span><span class="n">port</span><span class="o">=</span><span class="mi">88</span><span class="o">/</span><span class="n">udp</span> <span class="o">--</span><span class="n">permanent</span>
+<span class="n">firewall</span><span class="o">-</span><span class="n">cmd</span> <span class="o">--</span><span class="n">zone</span><span class="o">=</span><span class="n">public</span> <span class="o">--</span><span class="n">add</span><span class="o">-</span><span class="n">port</span><span class="o">=</span><span class="mi">464</span><span class="o">/</span><span class="n">udp</span> <span class="o">--</span><span class="n">permanent</span>
+
+<span class="c1"># bind</span>
+<span class="n">firewall</span><span class="o">-</span><span class="n">cmd</span> <span class="o">--</span><span class="n">zone</span><span class="o">=</span><span class="n">public</span> <span class="o">--</span><span class="n">add</span><span class="o">-</span><span class="n">port</span><span class="o">=</span><span class="mi">53</span><span class="o">/</span><span class="n">udp</span> <span class="o">--</span><span class="n">permanent</span>
+
+<span class="c1"># ntp</span>
+<span class="n">firewall</span><span class="o">-</span><span class="n">cmd</span> <span class="o">--</span><span class="n">zone</span><span class="o">=</span><span class="n">public</span> <span class="o">--</span><span class="n">add</span><span class="o">-</span><span class="n">port</span><span class="o">=</span><span class="mi">123</span><span class="o">/</span><span class="n">udp</span> <span class="o">--</span><span class="n">permanent</span>
+</pre></div>
+</div>
 <p>Amazing!</p>
 <p>Client can be installed with ipa-client-install</p>
 <p>see near bottom:
