@@ -1,0 +1,12 @@
+LAMP Server Patterns
+====================
+
+* CentOS 7
+   * `A general LAMP server <https://github.com/chris-conklin/junkco/blob/master/etc/bash/centos7/base-servers/junkco_installer>`_
+   * `A more specific LAMP server <https://github.com/chris-conklin/junkco/blob/master/etc/bash/centos7/base-servers/junkco_installer>`_
+   
+
+* Ubuntu 14.04
+   * `Ubuntu LAMP Server (has phpmyadmin) <https://github.com/chris-conklin/junkco/tree/master/etc/bash/ubuntu/lamp>`_
+
+

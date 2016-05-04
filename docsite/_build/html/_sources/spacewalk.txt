@@ -1,0 +1,4 @@
+CentOS 7 Spacewalk Server
+=========================
+
+* `A Spacewalk server <https://github.com/chris-conklin/junkco/tree/master/etc/bash/centos7/spacewalk>`_

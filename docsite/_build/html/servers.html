@@ -87,8 +87,12 @@
 <li class="toctree-l1"><a class="reference internal" href="about.html">About This Project</a></li>
 <li class="toctree-l1"><a class="reference internal" href="idmanagement.html">Identity Management</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="">Server Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ipaserver.html">IPA Server</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#vagrant-environments">Vagrant Environments</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#traditional-base-install-and-config-script">Traditional Base Install and Config Script</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lamp-server-patterns">LAMP Server Patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dns-server-patterns">DNS Server Patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#monitor-server-patterns">Monitor Server Patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#persistent-server">Persistent Server</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="database.html">Database Structure</a></li>
@@ -139,6 +143,11 @@
             
   <div class="section" id="server-configuration">
 <h1>Server Configuration<a class="headerlink" href="#server-configuration" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="ipaserver.html">IPA Server</a></li>
+</ul>
+</div>
 <p>We are currently running a mixture of Vagrant boxes, Bare Metal Servers, and VMs. Each server role should have a workflow in one or more environments.</p>
 <div class="section" id="vagrant-environments">
 <h2>Vagrant Environments<a class="headerlink" href="#vagrant-environments" title="Permalink to this headline">¶</a></h2>
@@ -147,21 +156,21 @@
 <dt>Ubuntu 14.04</dt>
 <dd><ul class="first last simple">
 <li><a class="reference external" href="https://github.com/chris-conklin/mossy_lab">Mossy Lab Basic LAMP Server</a></li>
+<li><a class="reference external" href="https://github.com/chris-conklin/vagrant_envs/tree/master/drupleville">Ubuntu Drupal 7 Server Environment</a></li>
 </ul>
 </dd>
 </dl>
 </li>
 </ul>
 </div>
-<div class="section" id="traditional-base-install-and-config-script">
-<h2>Traditional Base Install and Config Script<a class="headerlink" href="#traditional-base-install-and-config-script" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="lamp-server-patterns">
+<h2>LAMP Server Patterns<a class="headerlink" href="#lamp-server-patterns" title="Permalink to this headline">¶</a></h2>
 <ul>
 <li><dl class="first docutils">
 <dt>CentOS 7</dt>
 <dd><ul class="first last simple">
 <li><a class="reference external" href="https://github.com/chris-conklin/junkco/blob/master/etc/bash/centos7/base-servers/junkco_installer">A general LAMP server</a></li>
 <li><a class="reference external" href="https://github.com/chris-conklin/junkco/blob/master/etc/bash/centos7/base-servers/junkco_installer">A more specific LAMP server</a></li>
-<li><a class="reference external" href="https://github.com/chris-conklin/junkco/tree/master/etc/bash/centos7/spacewalk">A Spacewalk server</a></li>
 </ul>
 </dd>
 </dl>
@@ -169,12 +178,35 @@
 <li><dl class="first docutils">
 <dt>Ubuntu 14.04</dt>
 <dd><ul class="first last simple">
-<li><a class="reference external" href="https://github.com/chris-conklin/junkco/tree/master/etc/bash/ubuntu/dns">A dns server (master only)</a></li>
-<li><a class="reference external" href="https://github.com/chris-conklin/junkco/tree/master/etc/bash/ubuntu/monitor">A monitor server (carbon)</a></li>
+<li><a class="reference external" href="https://github.com/chris-conklin/junkco/tree/master/etc/bash/ubuntu/lamp">Ubuntu LAMP Server (has phpmyadmin)</a></li>
 </ul>
 </dd>
 </dl>
 </li>
+</ul>
+</div>
+<div class="section" id="dns-server-patterns">
+<h2>DNS Server Patterns<a class="headerlink" href="#dns-server-patterns" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/chris-conklin/junkco/tree/master/etc/bash/ubuntu/dns">Ubuntu dns server (master only)</a></li>
+</ul>
+</div>
+<div class="section" id="monitor-server-patterns">
+<h2>Monitor Server Patterns<a class="headerlink" href="#monitor-server-patterns" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><dl class="first docutils">
+<dt>Ubuntu 14.04</dt>
+<dd><ul class="first last simple">
+<li><a class="reference external" href="https://github.com/chris-conklin/junkco/tree/master/etc/bash/ubuntu/monitor">Carbon</a></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="section" id="persistent-server">
+<h2>Persistent Server<a class="headerlink" href="#persistent-server" title="Permalink to this headline">¶</a></h2>
+<ul>
 <li><dl class="first docutils">
 <dt>XUbuntu 14</dt>
 <dd><ul class="first last simple">
